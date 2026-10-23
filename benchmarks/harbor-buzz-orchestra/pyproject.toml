@@ -20,6 +20,24 @@ dev = [
     "ruff==0.16.3",
 ]
 
+# Smallest patched releases for transitive advisories. Exact pins keep
+# `uv lock` from floating to later minors. cryptography stays on 49.x:
+# the only fix is 50.0.0, a breaking major. yarl 1.25.1 is required by
+# aiohttp 3.14.4.
+[tool.uv]
+constraint-dependencies = [
+    "aiohttp==3.14.4",
+    "anyio==4.14.2",
+    "certifi==2026.10.19",
+    # datasets 5.0.0 caps fsspec at <=2026.4.0. 5.0.1 allows 2026.6.0 and
+    # still requires huggingface-hub<2, so the hub 2.x line stays out.
+    "datasets==5.0.1",
+    "fsspec==2026.6.0",
+    "pyjwt==2.15.0",
+    "urllib3==2.8.0",
+    "yarl==1.25.1",
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"

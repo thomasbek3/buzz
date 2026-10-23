@@ -22,6 +22,21 @@ dev = [
 [tool.uv.sources]
 harbor-buzz-orchestra = { path = "..", editable = true }
 
+# Same pins as the parent project. This lockfile is resolved separately,
+# so Dependabot reports the same advisories twice. cryptography stays on
+# 49.x: the only fix is 50.0.0, a breaking major.
+[tool.uv]
+constraint-dependencies = [
+    "aiohttp==3.14.4",
+    "anyio==4.14.2",
+    "certifi==2026.10.19",
+    "datasets==5.0.1",
+    "fsspec==2026.6.0",
+    "pyjwt==2.15.0",
+    "urllib3==2.8.0",
+    "yarl==1.25.1",
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
