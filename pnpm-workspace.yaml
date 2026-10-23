@@ -18,6 +18,38 @@ overrides:
   # 5.0.1 / 5.0.2 respectively; pin >=5.0.2 to cover both. Removable once
   # markdown-it resolves linkify-it >=5.0.2 on its own.
   linkify-it: "^5.0.2"
+  # Smallest patched releases for transitive advisories. Parents still allow
+  # the vulnerable versions, so the lockfile alone would not hold the floor.
+  # seroval: GHSA-p6vx-979v-rg4c (critical) and GHSA-jp82-f5mq-hwhp via
+  # @tanstack/router-core. 1.6.3 clears both; 1.7 is a newer minor.
+  seroval: "1.6.3"
+  # nanoid GHSA-2v37-7h3g-55p8. Stay on 3.x; 5.1.6 is the other release line.
+  "nanoid@<3.3.18": "3.3.18"
+  # source-map-js GHSA-68fv-2mgg-jv7q, via postcss.
+  "source-map-js@<1.2.2": "1.2.2"
+  # browserslist GHSA-73wf-gq98-2v4g and GHSA-c83g-rgw3-j3cx, via Babel.
+  "browserslist@<4.28.7": "4.28.7"
+  # markdown-it GHSA-r7fv-28h4-cvq7 and GHSA-gfr2-rv44-r23c, via tiptap-markdown.
+  # 15.0.3 also fixes them; stay on the 14.x line.
+  "markdown-it@<14.3.3": "14.3.3"
+  # prosemirror-view GHSA-c8x8-7fp4-3x9w. @tiptap/pm@3.30.5 still allows 1.41.x.
+  "prosemirror-view@<1.42.3": "1.42.3"
+  # prosemirror-view 1.42.3 needs prosemirror-model ^1.25.8, which otherwise
+  # sits beside the 1.25.4 copy. Two copies break node wrapping.
+  "prosemirror-model": "1.25.12"
+  # @tiptap/react@3.30.5 optionally depends on these with ^3.30.5, which
+  # otherwise resolves to 3.32.0 and skews the editor stack.
+  "@tiptap/extension-bubble-menu": "3.30.5"
+  "@tiptap/extension-floating-menu": "3.30.5"
+  # @tiptap/extension-link@3.30.5 requires linkifyjs ^4.3.3. A second 4.3.2
+  # copy keeps its own protocol registry, so the composer's `buzz` protocol
+  # never reaches the copy paste handling calls.
+  linkifyjs: "4.3.3"
+  # vite GHSA-587h-7wmj-h5pm (and the 8.0–8.1.5 editor advisories). 8.1.6 is
+  # the first fixed 8.1 release; do not float to 8.2/8.3 in this bump.
+  "vite@<8.1.6": "8.1.6"
+  # zod GHSA-mrhx-c7xc-m3w5. Also pulled by @tanstack/router-plugin.
+  "zod@<4.6.6": "4.6.6"
 patchedDependencies:
   isomorphic-git: patches/isomorphic-git.patch
   virtua@0.49.3: patches/virtua@0.49.3.patch
